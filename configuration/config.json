@@ -1,0 +1,14 @@
+{
+  "database": {
+    "db_host": "localhost",
+    "db_name": "admin",
+    "db_username": "nokia",
+    "db_password": "password",
+    "mongo_collection_name": "nokia",
+    "per_page_count": 10
+  },
+  "kafka": {
+    "broker": "localhost:9092",
+    "topic": "nokia"
+  }
+}

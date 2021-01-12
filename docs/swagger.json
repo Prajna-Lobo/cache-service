@@ -1,0 +1,113 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/api/cache-service/v1/data": {
+            "get": {
+                "tags": [
+                    "Cache service"
+                ],
+                "summary": "Fetch data from cache using pagination",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number",
+                        "name": "page_num",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size",
+                        "name": "page_size",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "fetches the data successfully",
+                        "schema": {
+                            "$ref": "#/definitions/model.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request page_num or page_size invalid",
+                        "schema": {
+                            "type": ""
+                        }
+                    },
+                    "500": {
+                        "description": "all service errors",
+                        "schema": {
+                            "type": ""
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Cache service"
+                ],
+                "summary": "Store data in cache with persistence backup in DB",
+                "responses": {
+                    "200": {
+                        "description": "fetch data",
+                        "schema": {
+                            "type": ""
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request when the given format in invalid",
+                        "schema": {
+                            "type": ""
+                        }
+                    },
+                    "500": {
+                        "description": "All service errors",
+                        "schema": {
+                            "type": ""
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.Data": {
+            "type": "object",
+            "properties": {
+                "key": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "object"
+                }
+            }
+        },
+        "model.PaginationResponse": {
+            "type": "object",
+            "properties": {
+                "totalPageCount": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.Response": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Data"
+                    }
+                },
+                "pagination": {
+                    "$ref": "#/definitions/model.PaginationResponse"
+                }
+            }
+        }
+    }
+}

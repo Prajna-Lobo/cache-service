@@ -1,0 +1,11 @@
+.DS_Store
+.vscode/
+vendor
+bin
+fmt
+.idea/
+metadata
+main
+.patch
+.gopath/pkg
+.gopath/bin

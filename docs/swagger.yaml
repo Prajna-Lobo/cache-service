@@ -1,0 +1,72 @@
+definitions:
+  model.Data:
+    properties:
+      key:
+        type: string
+      value:
+        type: object
+    type: object
+  model.PaginationResponse:
+    properties:
+      totalPageCount:
+        type: integer
+    type: object
+  model.Response:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.Data'
+        type: array
+      pagination:
+        $ref: '#/definitions/model.PaginationResponse'
+    type: object
+info:
+  contact: {}
+paths:
+  /api/cache-service/v1/data:
+    get:
+      parameters:
+      - description: Page number
+        in: query
+        name: page_num
+        required: true
+        type: integer
+      - description: Page size
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: fetches the data successfully
+          schema:
+            $ref: '#/definitions/model.Response'
+        "400":
+          description: Bad request page_num or page_size invalid
+          schema:
+            type: ""
+        "500":
+          description: all service errors
+          schema:
+            type: ""
+      summary: Fetch data from cache using pagination
+      tags:
+      - Cache service
+    post:
+      responses:
+        "200":
+          description: fetch data
+          schema:
+            type: ""
+        "400":
+          description: Bad request when the given format in invalid
+          schema:
+            type: ""
+        "500":
+          description: All service errors
+          schema:
+            type: ""
+      summary: Store data in cache with persistence backup in DB
+      tags:
+      - Cache service
+swagger: "2.0"
