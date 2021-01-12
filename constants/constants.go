@@ -5,6 +5,7 @@ const ConfigFileName = "./configuration/config.json"
 const (
 	DefaultInterval = 5
 	CleanupInterval = 10
+	CacheExpiration = 30
 )
 
 const (

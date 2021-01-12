@@ -9,20 +9,20 @@ import (
 )
 
 func DecodeRequestBody(r *http.Request) (model.Data, error) {
-	var cache model.Data
+	var data model.Data
 	decoder := json.NewDecoder(r.Body)
 	decoder.DisallowUnknownFields()
 
-	var data interface{}
-	err := decoder.Decode(&data)
+	var body interface{}
+	err := decoder.Decode(&body)
 
-	if reflect.ValueOf(data).IsValid() {
-		cache = model.Data{
+	if reflect.ValueOf(body).IsValid() {
+		data = model.Data{
 			Key:   GetUUID(),
-			Value: data,
+			Value: body,
 		}
 	}
-	return cache, err
+	return data, err
 }
 
 func GetPagination(pNum, pSize string) (model.Pagination, error) {

@@ -48,47 +48,61 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "fetches the data successfully",
+                        "description": "fetches the data from cache",
                         "schema": {
                             "$ref": "#/definitions/model.Response"
                         }
                     },
                     "400": {
-                        "description": "Bad request page_num or page_size invalid",
+                        "description": "ErrorCode: ERR_BAD_REQUEST",
                         "schema": {
-                            "type": ""
+                            "$ref": "#/definitions/model.Error"
                         }
                     },
                     "500": {
-                        "description": "all service errors",
+                        "description": "ErrorCode: ERR_INTERNAL_SERVER",
                         "schema": {
-                            "type": ""
+                            "$ref": "#/definitions/model.Error"
                         }
                     }
                 }
             },
             "post": {
+                "consumes": [
+                    "application/json"
+                ],
                 "tags": [
                     "Cache service"
                 ],
                 "summary": "Store data in cache with persistence backup in DB",
+                "parameters": [
+                    {
+                        "description": "Any valid json Data can be provided",
+                        "name": "Data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
                 "responses": {
-                    "200": {
-                        "description": "fetch data",
+                    "201": {
+                        "description": "store data",
                         "schema": {
                             "type": ""
                         }
                     },
                     "400": {
-                        "description": "Bad request when the given format in invalid",
+                        "description": "ErrorCode: ERR_BAD_REQUEST",
                         "schema": {
-                            "type": ""
+                            "$ref": "#/definitions/model.Error"
                         }
                     },
                     "500": {
-                        "description": "All service errors",
+                        "description": "ErrorCode: ERR_INTERNAL_SERVER",
                         "schema": {
-                            "type": ""
+                            "$ref": "#/definitions/model.Error"
                         }
                     }
                 }
@@ -104,6 +118,17 @@ var doc = `{
                 },
                 "value": {
                     "type": "object"
+                }
+            }
+        },
+        "model.Error": {
+            "type": "object",
+            "properties": {
+                "ErrorCode": {
+                    "type": "string"
+                },
+                "Errormessage": {
+                    "type": "string"
                 }
             }
         },

@@ -6,6 +6,13 @@ definitions:
       value:
         type: object
     type: object
+  model.Error:
+    properties:
+      ErrorCode:
+        type: string
+      Errormessage:
+        type: string
+    type: object
   model.PaginationResponse:
     properties:
       totalPageCount:
@@ -38,34 +45,43 @@ paths:
         type: integer
       responses:
         "200":
-          description: fetches the data successfully
+          description: fetches the data from cache
           schema:
             $ref: '#/definitions/model.Response'
         "400":
-          description: Bad request page_num or page_size invalid
+          description: 'ErrorCode: ERR_BAD_REQUEST'
           schema:
-            type: ""
+            $ref: '#/definitions/model.Error'
         "500":
-          description: all service errors
+          description: 'ErrorCode: ERR_INTERNAL_SERVER'
           schema:
-            type: ""
+            $ref: '#/definitions/model.Error'
       summary: Fetch data from cache using pagination
       tags:
       - Cache service
     post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Any valid json Data can be provided
+        in: body
+        name: Data
+        required: true
+        schema:
+          type: object
       responses:
-        "200":
-          description: fetch data
+        "201":
+          description: store data
           schema:
             type: ""
         "400":
-          description: Bad request when the given format in invalid
+          description: 'ErrorCode: ERR_BAD_REQUEST'
           schema:
-            type: ""
+            $ref: '#/definitions/model.Error'
         "500":
-          description: All service errors
+          description: 'ErrorCode: ERR_INTERNAL_SERVER'
           schema:
-            type: ""
+            $ref: '#/definitions/model.Error'
       summary: Store data in cache with persistence backup in DB
       tags:
       - Cache service
