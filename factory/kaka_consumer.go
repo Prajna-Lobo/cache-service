@@ -22,7 +22,7 @@ func StartKafkaConsumer(config *configuration.ConfigData) {
 	}
 
 	topic := config.Kafka.Topic
-	partitionConsumer, err := kafkaConsumer.ConsumePartition(topic, 0, sarama.OffsetOldest)
+	partitionConsumer, err := kafkaConsumer.ConsumePartition(topic, 1, sarama.OffsetOldest)
 	if err != nil {
 		log.Fatal(err)
 	}
