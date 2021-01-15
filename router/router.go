@@ -30,7 +30,7 @@ func SetUpRouter(config configuration.ConfigData) *gin.Engine {
 		routerGroup.GET("/health", HealthCheck)
 		routerGroup.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-		cacheGroup := routerGroup.Group("/api/cache-service/v1/data")
+		cacheGroup := routerGroup.Group("/data")
 		{
 			cacheGroup.POST("", cacheHandler.StoreCacheData)
 			cacheGroup.GET("", cacheHandler.FetchCacheData)

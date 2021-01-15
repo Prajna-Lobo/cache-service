@@ -1,6 +1,9 @@
 FROM golang:1.15-alpine
 
-ENV GO111MODULE=on
+# Set necessary environmet variables needed for our image
+ENV GO111MODULE=on \
+    GOOS=linux \
+    GOARCH=amd64
 
 # Set the Current Working Directory inside the container
 WORKDIR  $GOPATH/src/cache-service
@@ -19,5 +22,6 @@ RUN go build -o main .
 
 # This container exposes port 8080 to the outside world
 EXPOSE 8081
+EXPOSE 27017
 
 CMD ["./main"]
